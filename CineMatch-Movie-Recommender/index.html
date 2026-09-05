@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CineMatch — Smart Movie Recommendations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-glow glow-one"></div>
+  <div class="bg-glow glow-two"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#"><span>✦</span> CineMatch</a>
+    <nav>
+      <button class="nav-btn active" data-scroll="home">Discover</button>
+      <button class="nav-btn" data-scroll="recommendations">For You</button>
+      <button class="nav-btn" data-scroll="watchlist">Watchlist <span id="watchCount">0</span></button>
+    </nav>
+    <button class="settings-btn" id="settingsBtn">⚙ API</button>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">REAL-TIME MOVIE DISCOVERY</p>
+        <h1>Find your next<br><span>great watch.</span></h1>
+        <p class="hero-sub">Search the live movie catalog and get recommendations based on your mood, genres, ratings and movie similarity.</p>
+        <div class="search-wrap">
+          <span>⌕</span>
+          <input id="searchInput" type="search" placeholder="Search for a movie, e.g. Interstellar..." />
+          <button id="searchBtn">Search</button>
+        </div>
+        <div class="quick-tags">
+          <button class="tag mood-tag" data-mood="action">⚡ Adrenaline</button>
+          <button class="tag mood-tag" data-mood="feelgood">☀ Feel Good</button>
+          <button class="tag mood-tag" data-mood="mindbending">🧠 Mind-Bending</button>
+          <button class="tag mood-tag" data-mood="romance">♥ Romance</button>
+          <button class="tag mood-tag" data-mood="dark">◐ Dark & Gritty</button>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-label">SMART MATCH</div>
+        <div class="match-ring"><strong id="matchScore">94</strong><small>%</small></div>
+        <h3>Your recommendation engine</h3>
+        <p>Combines your selected mood, genre preferences, movie ratings and popularity into a transparent match score.</p>
+        <div class="mini-bars"><i></i><i></i><i></i><i></i><i></i></div>
+      </div>
+    </section>
+
+    <section class="control-panel">
+      <div class="section-heading">
+        <div><p class="eyebrow">PERSONALIZE</p><h2>What do you feel like watching?</h2></div>
+        <button class="ghost-btn" id="randomBtn">↻ Surprise me</button>
+      </div>
+      <div class="preference-grid">
+        <div>
+          <label>Genre</label>
+          <select id="genreSelect">
+            <option value="">Any genre</option>
+            <option value="28">Action</option><option value="12">Adventure</option>
+            <option value="16">Animation</option><option value="35">Comedy</option>
+            <option value="80">Crime</option><option value="99">Documentary</option>
+            <option value="18">Drama</option><option value="14">Fantasy</option>
+            <option value="27">Horror</option><option value="9648">Mystery</option>
+            <option value="10749">Romance</option><option value="878">Science Fiction</option>
+            <option value="53">Thriller</option>
+          </select>
+        </div>
+        <div>
+          <label>Minimum rating <span id="ratingValue">7.0</span></label>
+          <input id="ratingRange" type="range" min="5" max="9" step="0.1" value="7">
+        </div>
+        <div>
+          <label>Release period</label>
+          <select id="yearSelect">
+            <option value="">Any year</option><option value="2026">2026</option><option value="2025">2025</option>
+            <option value="2024">2024</option><option value="2020">2020–2023</option><option value="2010">2010–2019</option>
+            <option value="2000">2000–2009</option><option value="1990">1990–1999</option>
+          </select>
+        </div>
+        <button class="primary-btn" id="recommendBtn">✦ Get Recommendations</button>
+      </div>
+    </section>
+
+    <section class="section" id="recommendations">
+      <div class="section-heading">
+        <div><p class="eyebrow">LIVE FROM TMDB</p><h2 id="resultsTitle">Trending this week</h2></div>
+        <div class="result-tools"><span id="resultCount"></span></div>
+      </div>
+      <div id="movieGrid" class="movie-grid"></div>
+      <div id="emptyState" class="empty-state hidden">
+        <div>🎬</div><h3>No movies found</h3><p>Try a different title, genre, or lower the rating threshold.</p>
+      </div>
+    </section>
+
+    <section class="insight-section">
+      <div class="insight-card">
+        <div class="insight-icon">◈</div>
+        <div><p class="eyebrow">INTERVIEW-READY MODULE</p><h2>Why was this recommended?</h2>
+        <p>CineMatch doesn't just show a list. It explains the recommendation using a weighted scoring model.</p></div>
+        <div class="score-demo">
+          <div><span>Genre match</span><b>35%</b></div><div><span>Rating quality</span><b>25%</b></div>
+          <div><span>Popularity</span><b>20%</b></div><div><span>Mood similarity</span><b>20%</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section watch-section" id="watchlist">
+      <div class="section-heading"><div><p class="eyebrow">YOUR COLLECTION</p><h2>Watchlist</h2></div></div>
+      <div id="watchGrid" class="movie-grid"></div>
+      <div id="watchEmpty" class="empty-state"><div>♡</div><h3>Your watchlist is empty</h3><p>Click the heart on any movie to save it for later.</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <div><strong>✦ CineMatch</strong><span>Smart movie discovery for curious viewers.</span></div>
+    <p>This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+  </footer>
+
+  <div class="modal-backdrop hidden" id="detailModal">
+    <div class="detail-modal">
+      <button class="close-btn" id="closeModal">×</button>
+      <div id="detailContent"></div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="settingsModal">
+    <div class="settings-modal">
+      <button class="close-btn" id="closeSettings">×</button>
+      <p class="eyebrow">API CONNECTION</p><h2>Connect TMDB</h2>
+      <p class="modal-copy">Paste your TMDB API Read Access Token. It is saved only in this browser's local storage.</p>
+      <label>TMDB Read Access Token</label>
+      <textarea id="tokenInput" rows="4" placeholder="eyJhbGciOiJIUzI1NiJ9..."></textarea>
+      <div class="modal-actions"><button class="ghost-btn" id="clearToken">Clear token</button><button class="primary-btn" id="saveToken">Save & Connect</button></div>
+      <p class="tiny">For production, keep secrets on a backend. This demo intentionally uses a browser-side token so it can run as a static GitHub Pages project.</p>
+    </div>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="script.js"></script>
+</body>
+</html>
